@@ -3,9 +3,9 @@ requirejs.config({
 });
 
 requirejs([
-    'main'
+    'ball'
 ], function (
-    Main
+    Ball
 ) {
-	console.log('hello world');
+    new Ball();
 });
