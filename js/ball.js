@@ -1,5 +1,9 @@
-define('ball', [], function () {
+define('ball', [
+    'vector2'
+], function (
+    Vector2
+) {
     return function () {
-        console.log('hello ball');
+        new Vector2();
     }
 });
