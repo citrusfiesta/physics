@@ -3,6 +3,7 @@ define('ball', [
 ], function (
     Vector2
 ) {
+    'use strict';
     return function () {
         new Vector2();
     }

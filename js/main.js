@@ -7,5 +7,6 @@ requirejs([
 ], function (
     Ball
 ) {
+    'use strict';
     new Ball();
 });
