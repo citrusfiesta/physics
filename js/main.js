@@ -3,10 +3,27 @@ requirejs.config({
 });
 
 requirejs([
+    'lib/requestanimationframe',
     'ball'
 ], function (
+    requestAnimationFrame,
     Ball
 ) {
     'use strict';
-    new Ball();
+
+    var isRunning = false,
+        updateLoop = function () {
+
+            if (!isRunning)
+                return;
+            console.log('udpateLoop running');
+            requestAnimationFrame(updateLoop);
+        },
+        run = function () {
+            if (!isRunning) {
+                isRunning = true;
+                updateLoop();
+            }
+        };
+    run();
 });
