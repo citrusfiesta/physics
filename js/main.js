@@ -4,19 +4,20 @@ requirejs.config({
 
 requirejs([
     'lib/requestanimationframe',
-    'ball'
+    'managers/ballmanager'
 ], function (
     requestAnimationFrame,
-    Ball
+    BallManager
 ) {
     'use strict';
 
     var isRunning = false,
+        ballMan = new BallManager(),
         updateLoop = function () {
 
             if (!isRunning)
                 return;
-            console.log('udpateLoop running');
+            console.log('updateLoop running');
             requestAnimationFrame(updateLoop);
         },
         run = function () {
@@ -25,5 +26,6 @@ requirejs([
                 updateLoop();
             }
         };
+    ballMan.createBalls();
     run();
 });
