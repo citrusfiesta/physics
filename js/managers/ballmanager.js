@@ -1,6 +1,8 @@
 define('managers/ballmanager', [
+    'c',
     'ball'
 ], function (
+    C,
     Ball
 ) {
     'use strict';
@@ -9,7 +11,11 @@ define('managers/ballmanager', [
      * @return {Object} ballMan Instance of BallManager
      */
     return function () {
-        var i,
+        var i = 0,
+            len = 0,
+            ctx = C.ctx,
+            canvasWidth = C.canvas.width,
+            canvasHeight = C.canvas.height,
             balls = [],
             createBalls = function (amount) {
                 if (!amount)
@@ -21,9 +27,17 @@ define('managers/ballmanager', [
             },
             ballMan = {
                 update: function () {
-                    console.log('updating from ballMan');
+                    // clear screen before redrawing
+                    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+                    for (i = 0, len = balls.length; i < len; i++) {
+                        balls[i].update();
+                        balls[i].draw();
+                    }
                 }
             };
+
+        createBalls(200);
         return ballMan;
     };
 });
