@@ -4,20 +4,26 @@ requirejs.config({
 
 requirejs([
     'lib/requestanimationframe',
+    'c',
     'managers/ballmanager'
 ], function (
     requestAnimationFrame,
+    C,
     BallManager
 ) {
     'use strict';
 
-    var canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d'),
+    var canvas = C.canvas,
+        ctx = C.ctx,
         i = 0,
         len = 0,
         isRunning = false,
         isPaused = false,
         updateArr = [],
+        setup = function () {
+            canvas.width = 600;
+            canvas.height = 600;
+        },
         mainLoop = function () {
             if (!isRunning)
                 return;
@@ -42,6 +48,8 @@ requirejs([
                     updateArr[i].update();
             }
         };
+
+    setup();
     updateArr.push(new BallManager());
     run();
 });
