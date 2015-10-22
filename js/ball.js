@@ -11,14 +11,17 @@ define('ball', [
             ctx = C.ctx,
             radius = pRadius ? pRadius : Math.floor(Math.random() * 11) + 15,
             //turn into vector2 position
-            x = pX ? pX : Math.floor(Math.random() * (canvas.width - radius - radius)) + radius,
-            y = pY ? pY : Math.floor(Math.random() * (canvas.height - radius - radius)) + radius,
+            x = pX ? pX : Math.floor(Math.random() * (C.canvasWidth - radius - radius)) + radius,
+            y = pY ? pY : Math.floor(Math.random() * (C.canvasHeight - radius - radius)) + radius,
             twoPi = Math.PI + Math.PI,
             color = 'rgba(' +
             Math.floor(Math.random() * 256) + ',' +
             Math.floor(Math.random() * 256) + ',' +
             Math.floor(Math.random() * 256) + ',0.5)',
             ball = {
+                init: function () {
+
+                },
                 update: function () {
 
                 },
