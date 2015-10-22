@@ -22,21 +22,30 @@ define('managers/objectmanager', [
                 }
             },
             draw = function () {
+                // Clear screen befor drawing
                 ctx.clearRect(0, 0, C.canvasWidth, C.canvasHeight);
-                for (i = 0, len = objects.length; i < len; i++) {
+                for (i = 0, len = objects.length; i < len; i++)
                     if (objects[i].draw)
                         objects[i].draw();
-                }
             },
             add = function (object) {
                 objects.push(object);
+                //Keeping the amount of on screen objects low for performance
+                if (objects.length > 150)
+                    objects.shift();
                 if (object.init)
                     object.init();
             },
             module = {
                 add: add,
                 update: update,
-                draw: draw
+                draw: draw,
+                /**
+                 * Clears all objects from screen
+                 */
+                clearBalls: function () {
+                    objects.length = 0;
+                }
             };
 
         return module;
