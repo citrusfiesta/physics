@@ -49,8 +49,8 @@ requirejs([
             if (!amount || amount < 1)
                 amount = 1;
             for (i = 0; i < amount; i++) {
-                objMan.add(new Ball());
-                console.log('ball ' + i + 1);
+                objMan.add(new Ball(10, 10));
+                console.log('ball ' + (i + 1));
             }
         };
 
@@ -58,5 +58,5 @@ requirejs([
 
     run();
 
-    addBalls(200);
+    addBalls(1);
 });
