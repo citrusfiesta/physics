@@ -5,11 +5,13 @@ requirejs.config({
 requirejs([
     'lib/requestanimationframe',
     'c',
-    'managers/ballmanager'
+    'managers/objectmanager',
+    'ball'
 ], function (
     requestAnimationFrame,
     C,
-    BallManager
+    ObjectManager,
+    Ball
 ) {
     'use strict';
 
@@ -17,17 +19,23 @@ requirejs([
         ctx = C.ctx,
         i = 0,
         len = 0,
+        canvasWidth = 0,
+        canvasHeight = 0,
         isRunning = false,
         isPaused = false,
-        updateArr = [],
+        objMan = new ObjectManager(),
         setup = function () {
-            canvas.width = 600;
-            canvas.height = 600;
+            canvasWidth = C.canvasWidth;
+            canvasHeight = C.canvasHeight;
         },
         mainLoop = function () {
             if (!isRunning)
                 return;
-            update();
+
+            if (!isPaused)
+                objMan.update();
+            objMan.draw();
+
             requestAnimationFrame(mainLoop);
         },
         run = function () {
@@ -36,20 +44,19 @@ requirejs([
                 mainLoop();
             }
         },
-        update = function () {
-            for (i = 0, len = updateArr.length; i < len; i++) {
-                // preventing errors
-                if (!updateArr[i]) {
-                    console.log('Index ' + i + ' in updateArr returns null.');
-                    continue;
-                }
-
-                if (updateArr[i].update && !isPaused)
-                    updateArr[i].update();
+        // temp test function, remove later
+        addBalls = function (amount) {
+            if (!amount || amount < 1)
+                amount = 1;
+            for (i = 0; i < amount; i++) {
+                objMan.add(new Ball());
+                console.log('ball ' + i + 1);
             }
         };
 
     setup();
-    updateArr.push(new BallManager());
+
     run();
+
+    addBalls(200);
 });
