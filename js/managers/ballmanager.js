@@ -19,6 +19,8 @@ define('managers/ballmanager', [
             mouseX = 0,
             mouseY = 0,
             clicking = false,
+            friction = C.friction,
+            gravity = C.gravity,
             keys = [],
             createBall = function (x, y, velocity, radius) {
                 objMan.add(new Ball(x, y, velocity, radius));
@@ -47,8 +49,12 @@ define('managers/ballmanager', [
                 },
                 keyDown: function (e) {
                     keys[e.keyCode] = true;
-                    if (e.keyCode === 81) //Q
+                    if (e.keyCode === 81) // Q
                         objMan.clearBalls();
+                    if (e.keyCode === 70) // F
+                        objMan.toggleFriction();
+                    if (e.keyCode === 71) // G
+                        objMan.toggleGravity();
                 },
                 keyUp: function (e) {
                     keys[e.keyCode] = false;

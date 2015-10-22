@@ -45,6 +45,16 @@ define('managers/objectmanager', [
                  */
                 clearBalls: function () {
                     objects.length = 0;
+                },
+                toggleGravity: function () {
+                    C.gravity = !C.gravity;
+                    for (i = 0, len = objects.length; i < len; i++)
+                        objects[i].toggleGravity();
+                },
+                toggleFriction: function () {
+                    C.friction = !C.friction;
+                    for (i = 0, len = objects.length; i < len; i++)
+                        objects[i].toggleFriction();
                 }
             };
 

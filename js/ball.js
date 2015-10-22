@@ -17,6 +17,7 @@ define('ball', [
             oldPos = pos.clone(),
             velocity = pVelocity || new Vector2(0, 0),
             gravity,
+            friction,
             twoPi = Math.PI + Math.PI,
             color = 'rgba(' +
             Math.floor(Math.random() * 256) + ',' +
@@ -40,7 +41,10 @@ define('ball', [
             },
             move = function () {
                 velocity = getNewVelocity();
-                if (gravity) //Check if gravity is turned on
+                // Apply friction and gravity if applicable
+                if (friction)
+                    velocity = velocity.scale(friction);
+                if (gravity)
                     velocity = velocity.add(gravity);
 
                 oldPos = pos.clone();
@@ -51,8 +55,9 @@ define('ball', [
             },
             ball = {
                 init: function () {
-                    this.setGravity(0.25);
                     pos = pos.add(velocity);
+                    this.toggleGravity();
+                    this.toggleFriction();
                 },
                 update: function () {
                     move();
@@ -63,15 +68,17 @@ define('ball', [
                     ctx.fillStyle = color;
                     ctx.fill();
                 },
-                /**
-                 * Sets new gravity. If parameter is left empty, gravity is turned off.
-                 * @param {Vector2} value - How much gravity should be.
-                 */
-                setGravity: function (value) {
-                    if (value)
-                        gravity = new Vector2(0, value);
+                toggleGravity: function () {
+                    if (C.gravity)
+                        gravity = new Vector2(0, 0.25);
                     else
                         gravity = null;
+                },
+                toggleFriction: function () {
+                    if (C.friction)
+                        friction = 0.985;
+                    else
+                        friction = null;
                 }
             };
         return ball;
