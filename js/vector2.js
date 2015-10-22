@@ -1,48 +1,56 @@
-define('vector2', [], function () {
+define('vector2', [
+
+], function (
+
+) {
     'use strict';
-    return function (clipX, clipY) {
-        var x = clipX || 0,
-            y = clipY || 0,
-            add = function (vector) {
-                return new vec2(x + vector.x, y + vector.y);
-            },
-            subtract = function (vector) {
-                return new vec2(x - vector.x, y - vector.y);
-            },
-            magnitude = function () {
-                return Math.sqrt(x + x, y + y);
-            },
-            scale = function (factor) {
-                return new vec2(x * factor, y * factor);
-            },
-            clone = function () {
-                return new vec2(x, y);
-            },
-            mirror = function (horizontal) {
-                if (horizontal) return new vec2(-x, y);
-                else return new vec2(x, -y);
-            },
-            normalize = function (vector) {
-                var length = vector.magnitude();
-                return new vec2(vector.x / length, vector.y / length);
-            },
-            normal = function () {
-                return vec2.normalize();
-            },
-            clip = function (clipX, clipY, width, height) {
-                var nx = x,
-                    ny = y;
-                if (x < clipX)
-                    nx = clipX;
-                if (y < clipY)
-                    ny = clipY;
-                if (x > clipX + width)
-                    nx = clipX + width;
-                if (y > clipY + height)
-                    ny = clipY + height;
-                return new Vec2(nx, ny);
-            },
-            vec2 = {
+    var add = function (vector) {
+            var v = this.clone();
+            v.x += vector.x;
+            v.y += vector.y;
+            return v;
+        },
+        subtract = function (vector) {
+            var v = this.clone();
+            v.x -= vector.x;
+            v.y -= vector.y;
+            return v;
+        },
+        magnitude = function () {
+            return Math.sqrt(this.x * this.x + this.y * this.y);
+        },
+        scale = function (factor) {
+            return vec2(this.x * factor, this.y * factor);
+        },
+        clone = function () {
+            return vec2(this.x, this.y);
+        },
+        mirror = function (horizontal) {
+            if (horizontal) return vec2(-this.x, this.y);
+            else return vec2(this.x, -this.y);
+        },
+        normalize = function (vector) {
+            var length = vector.magnitude();
+            return vec2(vector.x / length, vector.y / length);
+        },
+        normal = function () {
+            return this.normalize();
+        },
+        clip = function (clipX, clipY, width, height) {
+            var nx = this.x,
+                ny = this.y;
+            if (this.x < clipX)
+                nx = clipX;
+            if (this.y < clipY)
+                ny = clipY;
+            if (this.x > clipX + width)
+                nx = clipX + width;
+            if (this.y > clipY + height)
+                ny = clipY + height;
+            return vec2(nx, ny);
+        },
+        vec2 = function (x, y) {
+            return {
                 x: x,
                 y: y,
                 add: add,
@@ -55,7 +63,7 @@ define('vector2', [], function () {
                 normal: normal,
                 clip: clip
             };
+        };
 
-        return vec2;
-    };
+    return vec2;
 });
