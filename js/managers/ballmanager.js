@@ -55,6 +55,9 @@ define('managers/ballmanager', [
                         objMan.toggleFriction();
                     if (e.keyCode === 71) // G
                         objMan.toggleGravity();
+                    if (e.keyCode === 90) // Z
+                        for (i = 0, len = 50; i < len; i++)
+                            createBall();
                 },
                 keyUp: function (e) {
                     keys[e.keyCode] = false;
