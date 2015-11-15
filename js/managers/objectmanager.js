@@ -31,7 +31,7 @@ define('managers/objectmanager', [
             add = function (object) {
                 objects.push(object);
                 //Keeping the amount of on screen objects low for performance
-                if (objects.length > 150)
+                if (objects.length > 300)
                     objects.shift();
                 if (object.init)
                     object.init();
